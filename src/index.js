@@ -31,12 +31,14 @@ class MapForm extends React.Component {
   handleSubmit(event) {
     //call express server to schedule the email
     axios
-      .post("http://localhost:4000", this.state)
+      .post(process.env.API_ENDPOINT, this.state)
       .then((res) => {
         console.log(res.data);
         this.setState({
           requests: this.state.requests.concat([
-            this.state.time + " - Requested Map API for: " + this.state.email,
+            new Date().toLocaleTimeString() +
+              " - Requested Map API for: " +
+              this.state.email,
           ]),
         });
       })
